@@ -1,6 +1,6 @@
 ﻿namespace Editor
 {
-    partial class newFileDialog
+    partial class newFileForm
     {
         /// <summary>
         /// Required designer variable.
@@ -68,7 +68,7 @@
             this.textBox1.Size = new System.Drawing.Size(156, 20);
             this.textBox1.TabIndex = 3;
             // 
-            // newFileDialog
+            // newFileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -77,7 +77,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
-            this.Name = "newFileDialog";
+            this.Name = "newFileForm";
             this.Text = "New file";
             this.ResumeLayout(false);
             this.PerformLayout();

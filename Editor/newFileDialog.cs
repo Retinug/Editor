@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Editor
 {
-    public partial class newFileDialog : Form
+    public partial class newFileForm : Form
     {
         public string fileName = "";
-        public newFileDialog()
+        public newFileForm()
         {
             InitializeComponent();
         }

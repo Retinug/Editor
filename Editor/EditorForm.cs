@@ -11,21 +11,16 @@ using System.Windows.Forms;
 
 namespace Editor
 {
-    public partial class Form1 : Form
+    public partial class EditorForm : Form
     {
         string filePath = "";
         private bool needSaving = false;
 
-        public Form1()
+        public EditorForm()
         {
             InitializeComponent();
             saveFileDialog.FileOk += (s,e) => WriteTofile(saveFileDialog.FileName);
             selectallToolStripMenuItem.Click += (s, e) => richTextBox1.SelectAll();
-        }
-
-        private void SaveFile(object sender, CancelEventArgs e)
-        {
-            
         }
 
         private void WriteTofile(string fileName)
@@ -39,7 +34,7 @@ namespace Editor
 
         private void newStripButton_Click(object sender, EventArgs e)
         {
-            var newFileDialog = new newFileDialog();
+            var newFileDialog = new newFileForm();
             if(newFileDialog.ShowDialog(this)==DialogResult.OK)
             {
                 richTextBox1.Enabled = true;
@@ -107,11 +102,6 @@ namespace Editor
             richTextBox1.SelectAll();
         }
 
-        private void saveasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog.ShowDialog();
-        }
-
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog.ShowDialog();
@@ -132,6 +122,11 @@ namespace Editor
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
             printDialog.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
