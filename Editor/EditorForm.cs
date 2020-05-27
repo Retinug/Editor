@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Editor
@@ -20,24 +13,24 @@ namespace Editor
         {
             InitializeComponent();
             saveFileDialog.FileOk += (s,e) => WriteTofile(saveFileDialog.FileName);
-            selectallToolStripMenuItem.Click += (s, e) => richTextBox1.SelectAll();
+            selectallToolStripMenuItem.Click += (s, e) => richTextBox.SelectAll();
         }
 
         private void WriteTofile(string fileName)
         {
             var output = new StreamWriter(File.OpenWrite(saveFileDialog.FileName));
-            output.Write(richTextBox1.Text);
+            output.Write(richTextBox.Text);
             output.Close();
             filePath = fileName;
             needSaving = false;
         }
 
-        private void newStripButton_Click(object sender, EventArgs e)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newFileDialog = new newFileForm();
-            if(newFileDialog.ShowDialog(this)==DialogResult.OK)
+            if (newFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                richTextBox1.Enabled = true;
+                richTextBox.Enabled = true;
                 filePath = newFileDialog.fileName;
                 needSaving = true;
             }
@@ -47,10 +40,8 @@ namespace Editor
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var input = File.OpenText(openFileDialog.FileName);
-                richTextBox1.Text = input.ReadToEnd();
-                input.Close();
-                richTextBox1.Enabled = true;
+                richTextBox.LoadFile(openFileDialog.FileName);
+                richTextBox.Enabled = true;
                 needSaving = false;
             }
         }
@@ -59,64 +50,68 @@ namespace Editor
         {
             if(needSaving)
             {
-                saveFileDialog.FileName = filePath;
-                saveFileDialog.ShowDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string s = saveFileDialog.Filter;
+                }
             }
-            saveFileDialog.ShowDialog();
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(richTextBox1.CanUndo)
+            if(richTextBox.CanUndo)
             {
-                richTextBox1.Undo();
+                richTextBox.Undo();
             }
         }
 
         private void redoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
-            if (richTextBox1.CanRedo)
+            if (richTextBox.CanRedo)
             {
-                richTextBox1.Redo();
+                richTextBox.Redo();
             }
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Cut();
+            richTextBox.Cut();
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Copy();
+            richTextBox.Copy();
         }
 
         private void insertToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Paste();
+            richTextBox.Paste();
         }
 
         private void selectallToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.SelectAll();
+            richTextBox.SelectAll();
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog.ShowDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.RichText);
+            }
         }
 
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(fontDialog.ShowDialog() == DialogResult.OK)
-                richTextBox1.SelectionFont = fontDialog.Font;
+                richTextBox.SelectionFont = fontDialog.Font;
         }
 
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(colorDialog.ShowDialog() == DialogResult.OK)
-                richTextBox1.SelectionColor = colorDialog.Color;
+                richTextBox.SelectionColor = colorDialog.Color;
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -128,5 +123,7 @@ namespace Editor
         {
             Application.Exit();
         }
+
+        
     }
 }
