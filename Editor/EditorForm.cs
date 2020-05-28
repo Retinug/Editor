@@ -134,5 +134,10 @@ namespace Editor
         {
             Application.Exit();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("RTF редактор", "Информация", MessageBoxButtons.OK);
+        }
     }
 }
